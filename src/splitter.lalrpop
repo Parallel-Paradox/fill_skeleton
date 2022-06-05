@@ -1,26 +1,22 @@
 use crate::parser::*;
 
 grammar;
-
-match {
-  r"\s*" => { },
-  _
-}
+match {_}
 
 pub Program: Vec<Section> = <sections: (<Section>)*> => sections;
 
+Spliter: String = "///" => <>.to_owned();
+
 Section: Section = {
-  "///" "line" <ident: Ident> r".*\n" <line: r"\n"> =>
-    Section {ident, items: vec![Item::Content(line.to_owned())]},
-//  "///" "start" <items: (<Item>)*> r".*\n" <item: Item> "///" "end" r".*" =>
-//    Section {ident, items},
+  <s1: Spliter> "start" <ident: Ident> <items: (<Item>)*> <s2: Spliter> "end" =>
+    Section {ident, items, ignore: false},
 }
 
-//Item: Item = {
-//  <Content> => Item::Content(<>),
-//  <Section> => Item::SubSection(<>),
-//}
-//
-//Content: String = r"\n([^/]*/{0,2}[^/]*)" => <>.to_owned();
+Item: Item = {
+  <Content> => Item::Content(<>),
+  <Section> => Item::SubSection(<>),
+}
+
+Content: String = r"\n[^/]*/{0,2}[^/]+" => <>.to_owned();
 
 Ident: String = r"[_a-zA-Z]\w*" => <>.to_owned();

@@ -9,3 +9,5 @@ lalrpop = "0.19.7"
 
 [dependencies]
 lalrpop-util = { version = "0.19.7", features = ["lexer"] }
+serde = "1.0"
+serde_json = "1.0"

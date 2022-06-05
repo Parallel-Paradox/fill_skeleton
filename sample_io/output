@@ -1,0 +1,25 @@
+[
+    Section {
+        ident: "No_1",
+        items: [
+            Content(
+                "\n#include <iostream>\nint main() {\n    ",
+            ),
+            SubSection(
+                Section {
+                    ident: "No_2",
+                    items: [
+                        Content(
+                            "\n    cout << \"Hello world\";\n    ",
+                        ),
+                    ],
+                    ignore: true,
+                },
+            ),
+            Content(
+                "\n    return 0;\n}\n",
+            ),
+        ],
+        ignore: false,
+    },
+]
